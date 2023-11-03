@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ANALIZADOR DE SENTIMIENTOS</title>
+</head>
+<body>
+	<form>
+        <label>Introduzca el comentario o reseña a analizar</label>
+        <input type=text id="texto" name="texto" >
+        <button type = "submit" onclick = "capturarElTexto()">Analizar</button>
+    </form>
+    <div>
+        <label for="mensaje-container">Resultado del analisis de sentimiento:</label>
+        <p id = "mensaje-container"></p>
+        <button type = "submit" onclick = "enviarAlertaAPython()">Enviar a Python</button>
+        <button type = "submit" onclick = "recibirElContenido()">Recibir Analisis</button>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="prueba.js"></script>
+</body>
+</html>
