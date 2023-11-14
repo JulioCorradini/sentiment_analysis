@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--!DOCTYPE html>
 <html>
 <head>
 	<title>ANALIZADOR DE SENTIMIENTOS</title>
@@ -18,5 +18,41 @@
 
     <script src="index.js"></script>
     <script src="prueba.js"></script>
+</body>
+</html-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador de sentimientos</title>
+</head>
+<body>
+    <label for="textoInput">Ingrese un texto:</label>
+    <input type="text" id="textoInput">
+    <button onclick="enviarTexto()">Enviar</button>
+
+    <p id="resultado"></p>
+
+    <script>
+        function enviarTexto() {
+            var textoIngresado = document.getElementById("textoInput").value;
+
+            // Enviar el texto al servidor Python
+            fetch('/analisis', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ texto: textoIngresado }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Mostrar el nuevo dato en la página HTML
+                document.getElementById("resultado").innerText = "Valoración: " + data.valoracion;
+            });
+        }
+    </script>
 </body>
 </html>
