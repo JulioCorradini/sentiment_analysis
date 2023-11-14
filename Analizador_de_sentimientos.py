@@ -32,11 +32,11 @@ def reques_front_end():
     valoracion = ""
       
     if (sentimiento > 0):
-      valoracion = 'Valoracion Positiva'
+      valoracion = 1
     elif (sentimiento < 0):
-      valoracion = 'Valoracion Negativa'
+      valoracion = -1
     else:
-      valoracion = 'No se pudo determinar la intenicon del texto'
+      valoracion = 0
 
     return {'valoracion': valoracion}
   
