@@ -4,6 +4,9 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 from flask import Flask, request, jsonify
 from flask import Flask, request, render_template
 from flask_cors import CORS, cross_origin
+from Preprocezado_de_texto import preprocess_text
+from Frecuencia_de_palabras import extract_features
+from Entrenar_el_modelo import classifier
 
 # Descargar el recurso vader_lexicon
 nltk.download('vader_lexicon')
@@ -24,23 +27,26 @@ def reques_front_end():
   
   texto_recibido = data['texto']
 
-  sia = SentimentIntensityAnalyzer()
+  # Preprocesamiento del texto ingresado
+  preprocessed_text = preprocess_text(texto_recibido)
 
-  sentimiento = sia.polarity_scores(texto_recibido)['compound']
+  # Extracción de características del texto ingresado
+  features = extract_features(preprocessed_text)
 
-  def valoracion (sentimiento):
+  # Clasificación del nuevo texto
+  sentiment = classifier.classify(features)
+
+  def valoracion (sentiment):
     valoracion = ""
-      
-    if (sentimiento > 0):
+    if(sentiment == 'positive'):
       valoracion = 1
-    elif (sentimiento < 0):
-      valoracion = -1
+    elif (sentiment == 'negative'):
+       valoracion = -1
     else:
-      valoracion = 0
-
+       valoracion = 0
     return {'valoracion': valoracion}
   
-  result = valoracion (sentimiento)
+  result = valoracion (sentiment)
 
   return jsonify(result)
 
